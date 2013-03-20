@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `qu-plupload` (
 ```
 
 
-Installs all application
+Installation all application
 ========================
 
 ```

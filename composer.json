@@ -10,7 +10,7 @@
         "php": ">=5.3.3",
         "zendframework/skeleton-application":"dev-master",
         "zf-commons/zfc-base":"~0.1",
-        "webino/webino-image-thumb":"dev-master"
+        "webino/webino-image-thumb":"~0.1"
     },
     "authors": [
         {
