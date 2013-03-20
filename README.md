@@ -85,6 +85,7 @@ php composer.phar require "qu-modules/qu-plupload":"dev-master"
 Config
 ========================
 - In global.php
+```php
 return array(
     'db' => array(
         'driver' => 'Pdo',
@@ -103,6 +104,7 @@ return array(
     ),
 
 );
+```
 - Enable modules (QuPlupload/WebinoImageThumb) application.config.php and configure the routes module.config.php
 
 - Add database
