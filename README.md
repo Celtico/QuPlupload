@@ -24,23 +24,25 @@ Installation
 
 Installation by Composer
 ========================
-See the information if not known composer and clone git
-=========================================================
-- http://git-scm.com
-- http://getcomposer.org
+
+your project
 
 ```
 cd YourFolderProject/
 php composer.phar require "qu-modules/qu-plupload":"dev-master"
 ```
 
-or
+or installs all application
 
 ```
-git clone git://github.com/Celtico/QuPlupload.git
-cd QuPlupload
+cd my/project/dir
+git clone git://github.com/zendframework/ZendSkeletonApplication.git
+cd ZendSkeletonApplication
 php composer.phar self-update
 php composer.phar install
+php composer.phar require "zf-commons/zfc-base":"dev-master"
+php composer.phar require "webino/webino-image-thumb":"dev-master"
+php composer.phar require "qu-modules/qu-plupload":"dev-master"
 ```
 
 Integration
