@@ -50,13 +50,7 @@ Integration
 
 ```html
 <div class="PluploadLoad">
-<<<<<<< HEAD
-    <?=$this->PluploadHelpLoad($id)?>
-</div>
-<div id="uploader"></div>
-<?=$this->PluploadHelp('uploader')?>
 ```
-=======
 ```php
     echo $this->PluploadHelpLoad($id);
 ```
@@ -69,7 +63,6 @@ Integration
  echo $this->PluploadHelp('uploader');
 ```
 
->>>>>>> up
 
 - Add table in your database
 
