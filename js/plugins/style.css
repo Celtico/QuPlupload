@@ -58,25 +58,50 @@
     position:absolute;
     top:5px;
 }
-.PluploadLoad .iconb {
-    font-size: 20px;
-    top:5px;
-}
+
 .PluploadLoad img,
 .PluploadLoad .iconb{
     top:7px;
     left: 10px;
     padding:5px;
-    box-shadow: 0 0 7px rgba(255, 255, 255, 0.3);
-    border: rgba(48, 65, 90, 0.62) solid 3px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    border: rgb(88, 106, 117) solid 3px;
     border-radius:3px;
 }
 .PluploadLoad .iconb {
     height:20px;
     width:30px;
     display:block;
+    padding-top:10px;
+    padding-bottom:0px;
+    position:absolute;
+    background-image: -moz-linear-gradient(top, rgb(41, 45, 52), rgba(17, 20, 31, 0.51));
+    background-image: -webkit-gradient(linear, 0 0, 0 100%,  rgb(41, 45, 52), to(rgba(17, 20, 31, 0.51)));
+    background-image: -webkit-linear-gradient(top,   rgb(41, 45, 52),rgba(17, 20, 31, 0.51));
+    background-image: -o-linear-gradient(top,  rgb(41, 45, 52), rgba(17, 20, 31, 0.51));
+    background-image: linear-gradient(to bottom,   rgb(41, 45, 52), rgba(17, 20, 31, 0.51));
 }
-
+.PluploadLoad .iconb  .ex {
+    background:rgba(255, 255, 255,1);
+    border-radius:2px;
+    font-size:10px;
+    line-height:10px;
+    display:block;
+    padding:3px 2px 4px 2px;
+    position:absolute;
+    right:-10px;
+    width:40px;
+    bottom:5px;
+    text-align:center;
+    font-weight:bold;
+    background-image: -moz-linear-gradient(top, rgb(238, 238, 238), #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, rgb(238, 238, 238), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, rgb(238, 238, 238), #e6e6e6);
+    background-image: -o-linear-gradient(top, rgb(238, 238, 238), #e6e6e6);
+    background-image: linear-gradient(to bottom, rgb(238, 238, 238), #e6e6e6);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
 .PluploadLoad .name {
     left: 72px;
     top: 13px;
