@@ -50,16 +50,11 @@ Integration
 
 ```html
 <div class="PluploadLoad">
-```
-```php
     echo $this->PluploadHelpLoad($id);
-```
 </div>
 ```
 ```html
 <div id="uploader"></div>
-```
-```php
  echo $this->PluploadHelp('uploader');
 ```
 
