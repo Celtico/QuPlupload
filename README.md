@@ -4,10 +4,15 @@ QuPlupload
 ZF2 Module for Plupload, PhpThumb and included Database
 0.0.1-dev
 
-Screen Shots
+Screen Shot
 ==================================
 
 ![QuDemo example screenshot](http://dibuixa.com/screen.png)
+
+Demo example
+==================================
+
+http://a.laweb.es/quplupload
 
 Requirements
 ==================================
