@@ -89,21 +89,56 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
 
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('plupload_entity' => $pluploadEntity));
 
+        if(isset($data["chunk"])){
+
+            // UploadModel
+            $fileName = $pluploadModel->PluploadModel($data);
+
+            if(($data["chunk"]+1) == $data["chunks"]){
+
+
                 // Get db last id
                 $id = $pluploadMapper->insert($pluploadEntity);
 
-                // Upload
-                $pluploadModel->setId($id);
 
-                // Get Name
-                $fileNameDb = $pluploadModel->PluploadModel($data);
+                // Get size and rename
+                $fileSize = filesize ( $fileName['filePath'] );
+                $NameRename  =  str_replace('/-','/'.$id.'-',$fileName['filePath']);
+                rename($fileName['filePath'],$NameRename);
+
 
                 // Thumb
-                $thumbModel->ThumbModel($fileNameDb);
+               $thumbModel->ThumbModel($id.$fileName['fileName']);
+
 
                 // Update Db
-                $pluploadEntity->setName($fileNameDb)->setIdPlupload($id);
+                $pluploadEntity
+                    ->setName($id.$fileName['fileName'])
+                    ->setSize($fileSize)
+                    ->setIdPlupload($id);
                 $pluploadMapper->update($pluploadEntity);
+
+            }
+
+        }else{
+
+            // Get db last id
+            $id = $pluploadMapper->insert($pluploadEntity);
+
+            // Upload and set Name
+            $pluploadModel->setId($id);
+            $fileName = $pluploadModel->PluploadModel($data);
+
+            // Thumb
+            $thumbModel->ThumbModel($fileName['fileName']);
+
+            // Update Db
+            $pluploadEntity
+                ->setName($fileName['fileName'])
+                ->setIdPlupload($id);
+            $pluploadMapper->update($pluploadEntity);
+
+        }
 
         $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('plupload_entity' => $pluploadEntity));
 

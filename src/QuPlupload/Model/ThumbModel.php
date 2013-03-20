@@ -44,9 +44,10 @@ class ThumbModel
             );
         }
 
-        $fileTransfer = new File\IsImage();
-        if($fileTransfer->isValid($file)){
-
+        //$fileTransfer = new File\IsImage();
+        //if($fileTransfer->isValid($file)){
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        if($extension == 'jpg' or $extension == 'jpeg' or $extension == 'gif' or $extension == 'png'){
 
             $ThumbService = $this->ThumbService->create($file);
             foreach($ThumbSize as $key => $size)

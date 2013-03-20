@@ -9,6 +9,7 @@ namespace QuPlupload\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use QuPlupload\Util;
+use Zend\Validator\File;
 
 class PluploadHelpLoad extends AbstractHelper
 {
@@ -40,8 +41,9 @@ class PluploadHelpLoad extends AbstractHelper
     public function __invoke($id = 0)
     {
         $this->pluploadService->setPluploadIdList($id);
-        $listDb = $this->pluploadService->getPluploadList();
-        $Util   = new Util();
+
+        $listDb  = $this->pluploadService->getPluploadList();
+        $Util    = new Util();
 
         if(count($listDb) > 0){
 
@@ -50,15 +52,19 @@ class PluploadHelpLoad extends AbstractHelper
             foreach($listDb as $a){
 
                 $type      = explode('/',$a->getType());
-                $url       = $this->Config['DirUpload'] . '/' . $a->getName();
+                $file      = $this->Config['DirUploadAbsolute'] . '/' . $a->getName();
+                $url       = $this->Config['DirUpload'] . '/'  . $a->getName();
                 $urlSmall  = $this->Config['DirUpload'] . '/s' . $a->getName();
                 $name      = $a->getName();
                 $id_in     = $a->getIdPlupload();
                 $size      = $Util->formatBytes($a->getSize());
+                $ex        = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                $Exists    = new File\NotExists($file);
 
-                if(file_exists($this->Config['DirUploadAbsolute'].'/'.$a->getName())){
+                if($Exists->isValid($file)){
 
-                    if($type[0] ==  'image'){
+
+                    if($ex == 'jpg' or $ex == 'jpeg' or $ex == 'gif' or $ex == 'png'){
 
                         $list .= '
                         <li>
@@ -75,7 +81,7 @@ class PluploadHelpLoad extends AbstractHelper
                         $list .= '
                         <li>
                             <a href="'.$url.'" class="doc">
-                                <span class="iconb" data-icon="&#xe013;"></span>
+                                <span class="iconb"><span class="ex">.'.$ex.'</span></span>
                                 <div class="name">'.$name.'</div>
                                  <span class="label size">'.$size.'</span>
                                 <div id="'.$id_in.'" class="action"><a href="#"></a></div>

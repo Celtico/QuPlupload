@@ -170,7 +170,10 @@ class PluploadModel
         }
 
 
-        return $fileNameDb;
+        return array(
+            'fileName'=>$fileNameDb,
+            'filePath'=>$filePath
+        );
 
     }
 

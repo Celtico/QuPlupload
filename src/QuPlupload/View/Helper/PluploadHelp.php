@@ -46,7 +46,7 @@ class PluploadHelp extends AbstractHelper
 
                     runtimes: 'html5,gears,browserplus,html4',
                     url: '<?php echo $this->Config['UrlUpload']; ?>/<?php echo $id; ?>',
-                    max_file_size: '10mb',
+                    max_file_size: '20mb',
                     chunk_size: '1mb',
                     unique_names: false,
                     multiple_queues: true,
