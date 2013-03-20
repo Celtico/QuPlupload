@@ -1,0 +1,50 @@
+<?
+$this->headTitle('Qu Plupload');
+$this->placeholder('title')->set('Qu Plupload');
+$this->headLink()
+    ->prependStylesheet('js/plugins/bootstrap.min.css')
+    ->prependStylesheet('js/plugins/style.css')
+    ->prependStylesheet('js/plugins/plupload' . '/js/jquery.plupload.queue/css/jquery.plupload.queue.css');
+$this->headScript()
+    ->prependFile('js/plugins/plupload' . '/jquery/jquery-ui-1.8.23.custom.min.js', 'text/javascript')
+    ->prependFile('js/plugins/plupload' . '/jquery/jquery-1.8.1.min.js', 'text/javascript');
+?>
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="shadow">
+
+
+                <div class="test plupload_header">
+                    <div class="plupload_header_content">
+                        <div class="plupload_header_title">
+                            ZF2 Module for Plupload, PhpThumb and included Database
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="PluploadLoad">
+                    <?=$this->PluploadHelpLoad($id)?>
+                </div>
+
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="shadow">
+
+
+            <div id="uploader"></div>
+            <?=$this->PluploadHelp('uploader')?>
+
+
+          </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,34 @@
+{
+    "name": "qu-modules/qu-plupload",
+    "description": "ZF2 Module for Plupload, PhpThumb and included Database",
+    "type": "module",
+    "version":"0.0.1-dev",
+    "keywords": ["plupload","zf2","module"],
+    "homepage": "https://github.com/Celtico/QuPlupload/",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/skeleton-application":"dev-master",
+        "zf-commons/zfc-base": "dev-master",
+        "webino/webino-image-thumb": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Cel Ticó Petit",
+            "email": "cel@cenics.net",
+            "homepage": "http://www.cenics.cat",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "cel@cenics.net"
+    },
+    "autoload": {
+        "psr-0": {
+            "QuAdmin": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
