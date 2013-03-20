@@ -25,7 +25,7 @@ $this->headScript()
 
 
                 <div class="PluploadLoad">
-                    <?=$this->PluploadHelpLoad($id)?>
+                    <?php echo $this->PluploadHelpLoad($id); ?>
                 </div>
 
 
@@ -38,9 +38,8 @@ $this->headScript()
             <div class="shadow">
 
 
-            <div id="uploader"></div>
-            <?=$this->PluploadHelp('uploader')?>
-
+                <div id="uploader"></div>
+                <?php echo $this->PluploadHelp('uploader'); ?>
 
           </div>
         </div>
