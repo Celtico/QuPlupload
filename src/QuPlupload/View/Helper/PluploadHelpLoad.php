@@ -9,7 +9,6 @@ namespace QuPlupload\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use QuPlupload\Util;
-use Zend\Validator\File;
 
 class PluploadHelpLoad extends AbstractHelper
 {
@@ -59,9 +58,8 @@ class PluploadHelpLoad extends AbstractHelper
                 $id_in     = $a->getIdPlupload();
                 $size      = $Util->formatBytes($a->getSize());
                 $ex        = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                $Exists    = new File\NotExists($file);
 
-                if($Exists->isValid($file)){
+                if( file_exists ($file) ){
 
 
                     if($ex == 'jpg' or $ex == 'jpeg' or $ex == 'gif' or $ex == 'png'){
