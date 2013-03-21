@@ -82,7 +82,7 @@ git clone git://github.com/zendframework/ZendSkeletonApplication.git
 cd ZendSkeletonApplication
 php composer.phar self-update
 php composer.phar install
-php composer.phar require "zf-commons/zfc-base":"dev-master"
+php composer.phar require "zf-commons/zfc-base":"0.*"
 php composer.phar require "webino/webino-image-thumb":"dev-master"
 php composer.phar require "qu-modules/qu-plupload":"dev-master"
 ```
@@ -109,24 +109,6 @@ return array(
     ),
 
 );
-```
-- Enable modules (QuPlupload/WebinoImageThumb) application.config.php and configure the routes module.config.php
-
-- Add database
-
-```mysql
-CREATE DATABASE IF NOT EXISTS `qu-modules`;
-use `qu-modules`;
-CREATE TABLE IF NOT EXISTS `qu-plupload` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `id_parent` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `tmp_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `error` int(255) NOT NULL,
-  `size` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 ```
 
 Virtual Host
