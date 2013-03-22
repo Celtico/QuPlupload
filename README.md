@@ -35,7 +35,7 @@ Installation Drag and Drop
 
 Next
 ========================
-- Move js/plugin public folder
+- Move folder plugin in to public folder (look current version)
 - Enable modules (QuPlupload/WebinoImageThumb) application.config.php and configure the routes module.config.php
 - Folder permissions to upload
 
