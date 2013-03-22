@@ -109,7 +109,7 @@ return array(
             'UrlRemove'          => '/quplupload/remove',
             'UrlLoad'            => '/quplupload/load',
             'DirUpload'          => '/uploads/files/plupload',
-            'DirUploadAbsolute'  => dirname(dirname(dirname(dirname(__DIR__)))) . '/public/uploads/files/plupload',
+            'DirUploadAbsolute'  => dirname(dirname(dirname(dirname(__DIR__)))) . '/web/uploads/files/plupload',
             'DirJs'              => 'js/plugins/plupload',
             'Resize'             => array('900','1000'), //$width, $height
             'ThumbResize'        => array(
