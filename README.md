@@ -12,7 +12,7 @@ Screen Shot
 Demo example
 ==================================
 
-http://a.laweb.es/quplupload
+http://qumodules.com/
 
 Requirements
 ==================================
