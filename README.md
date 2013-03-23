@@ -20,6 +20,13 @@ Requirements
 - ZfcBase https://github.com/ZF-Commons/ZfcUser
 - WebinoImageThumb https://github.com/webino/WebinoImageThumb
 
+Installation
+========================
+- Drag the folder into modules folder
+- Move folder plugin in to public/js folder (look current version http://www.plupload.com/)
+- Enable modules ( QuPlupload & WebinoImageThumb ) application.config.php and configure the routes module.config.php
+- Folder permissions to upload
+
 Installation by Composer
 ========================
 
@@ -28,16 +35,6 @@ cd YourFolderProject/
 php composer.phar require "qu-modules/qu-plupload":"dev-master"
 ```
 
-Installation Drag and Drop
-========================
-- Drag a folder into modules folder or vendor folder
-
-
-Next
-========================
-- Move folder plugin in to public folder (look current version)
-- Enable modules (QuPlupload/WebinoImageThumb) application.config.php and configure the routes module.config.php
-- Folder permissions to upload
 
 Integration
 ========================
@@ -46,16 +43,16 @@ Integration
 
 ```html
 <div class="PluploadLoad">
-    echo $this->PluploadHelpLoad($id);
+    <?php echo $this->PluploadHelpLoad($id); ?>
 </div>
 ```
 ```html
 <div id="uploader"></div>
- echo $this->PluploadHelp('uploader');
+    <?php echo $this->PluploadHelp('uploader'); ?>
 ```
 
-- Add table in your database
-
+Table database
+========================
 
 ```mysql
 CREATE DATABASE IF NOT EXISTS `qu-modules`;
@@ -89,7 +86,9 @@ php composer.phar require "qu-modules/qu-plupload":"dev-master"
 
 Config
 ========================
-- In global.php
+
+- In global.php/local.php
+
 ```php
 return array(
     'db' => array(
