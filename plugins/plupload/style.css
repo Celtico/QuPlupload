@@ -1,5 +1,4 @@
 
-
 .PluploadLoad a {
     color:rgb(122, 122, 122);
     font-weight:500;
@@ -41,7 +40,7 @@
 .test {
     position:relative;
     bottom:-8px;
-    margin:20px  8px  0  8px;
+    margin:0px  8px  0  8px;
     height:56px;
 }
 .test  .plupload_header_content {
@@ -134,4 +133,7 @@
 
     background: #F5F5F5 url('/js/plugins/plupload/js/jquery.plupload.queue/img/backgrounds.gif') repeat-x 0 -156px;
     border-bottom: 1px solid #DDD;
+}
+.ui-helper-reset, #elfinder {
+
 }

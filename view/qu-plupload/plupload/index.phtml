@@ -3,7 +3,7 @@ $this->headTitle('Qu Plupload');
 $this->placeholder('title')->set('Qu Plupload');
 $this->headLink()
     ->prependStylesheet('js/plugins/bootstrap.min.css')
-    ->prependStylesheet('js/plugins/style.css')
+    ->prependStylesheet('js/plugins/plupload/style.css')
     ->prependStylesheet('js/plugins/plupload' . '/js/jquery.plupload.queue/css/jquery.plupload.queue.css');
 $this->headScript()
     ->prependFile('js/plugins/plupload' . '/jquery/jquery-ui-1.8.23.custom.min.js', 'text/javascript')
@@ -47,3 +47,21 @@ $this->headScript()
 
 </div>
 
+
+<!-- DISQUS -->
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <br><br>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'qumodules';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        </div>
+    </div>
+</div>
