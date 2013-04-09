@@ -43,7 +43,7 @@ return array(
                     'upload' => array(
                         'type'    => 'segment',
                         'options' => array(
-                            'route' => '/upload[/:id]',
+                            'route' => '/upload[/:id][/:model]',
                             'constraints' => array(
                                 'action'     => 'upload',
                                 'id'        => '[0-9]+',
@@ -57,10 +57,11 @@ return array(
                     'dump' => array(
                         'type'    => 'segment',
                         'options' => array(
-                            'route' => '/load[/:id]',
+                            'route' => '/load[/:id][/:model]',
                             'constraints' => array(
-                                'action'     => 'load',
-                                'id'        => '[0-9]+',
+                                'action'  => 'load',
+                                'id'      => '[0-9]+',
+                                'model'   => '[a-zA-Z][a-zA-Z0-9_.-]*',
                             ),
                             'defaults' => array(
                                 'controller' => 'QuPlupload',
@@ -71,11 +72,12 @@ return array(
                     'remove' => array(
                         'type'    => 'segment',
                         'options' => array(
-                            'route' => '/remove[/:id][/:id_parent]',
+                            'route' => '/remove[/:id][/:id_parent][/:model]',
                             'constraints' => array(
                                 'action'     => 'remove',
                                 'id'         => '[0-9]+',
                                 'id_parent'  => '[0-9]+',
+                                'model'      => '[a-zA-Z][a-zA-Z0-9_.-]*',
                             ),
                             'defaults' => array(
                                 'controller' => 'QuPlupload',
@@ -109,9 +111,13 @@ return array(
             'UrlRemove'          => '/quplupload/remove',
             'UrlLoad'            => '/quplupload/load',
             'DirUpload'          => '/uploads/files/plupload',
+<<<<<<< HEAD
             'DirUploadAbsolute'  => dirname(dirname(dirname(__DIR__))) . '/web/uploads/files/plupload',
+=======
+            'DirUploadAbsolute'  =>  dirname(dirname(dirname(__DIR__))) . '/web/uploads/files/plupload',
+>>>>>>> Update
             'DirJs'              => 'js/plugins/plupload',
-            'Resize'             => array('900','1000'), //$width, $height
+            'Resize'             => array('1200','900'), //$width, $height
             'ThumbResize'        => array(
 
                 /* Properties  GdThumb Class Definition
@@ -124,7 +130,7 @@ return array(
 
                 */
 
-                'xl' => array('resize','700','800'),
+                'xl' => array('resize','1170','420'),
                 'l'  => array('resize','600','550'),
                 'm'  => array('resize','500','418'),
                 's'  => array('adaptiveResize','30','20'),
