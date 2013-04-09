@@ -8,7 +8,7 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/skeleton-application":"dev-master",
+        "zendframework/zendframework":"dev-master",
         "zf-commons/zfc-base":"~0.1",
         "webino/webino-image-thumb":"dev-master"
     },
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-0": {
-            "QuAdmin": "src/"
+            "QuPlupload": "src/"
         },
         "classmap": [
             "./Module.php"
