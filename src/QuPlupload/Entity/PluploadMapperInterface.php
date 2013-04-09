@@ -13,6 +13,8 @@ interface PluploadMapperInterface
 
     public function findByParent($id);
 
+    public function findByParentByModel($id,$model);
+
     public function insert($plupload);
 
     public function update($plupload);

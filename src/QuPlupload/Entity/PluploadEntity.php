@@ -46,6 +46,11 @@ class PluploadEntity
     protected $size;
 
     /**
+     * @var
+     */
+    protected $model;
+
+    /**
      * Get id.
      *
      * @return int
@@ -177,6 +182,25 @@ class PluploadEntity
     public function getSize()
     {
         return $this->size;
+    }
+
+
+    /**
+     * @param $model
+     * @return $this
+     */
+    public function setModel($model)
+    {
+        $this->model = (string) $model;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 
 }

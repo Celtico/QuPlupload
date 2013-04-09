@@ -28,8 +28,9 @@ class PluploadHelp extends AbstractHelper
     /**
      * @param $name
      * @param int $id
+     * @param $model
      */
-    public function __invoke($name,$id = 0)
+    public function __invoke($name,$id = 0,$model)
     {
 
         $this->view->inlineScript()
@@ -45,7 +46,7 @@ class PluploadHelp extends AbstractHelper
                 $("#<?=$name?>").pluploadQueue({
 
                     runtimes: 'html5,gears,browserplus,html4',
-                    url: '<?php echo $this->Config['UrlUpload']; ?>/<?php echo $id; ?>',
+                    url: '<?php echo $this->Config['UrlUpload']; ?>/<?php echo $id; ?>/<?php echo $model; ?>',
                     max_file_size: '20mb',
                     chunk_size: '1mb',
                     unique_names: false,
@@ -59,7 +60,7 @@ class PluploadHelp extends AbstractHelper
                                     if(up.state == plupload.STARTED){
                                         console.log('STARTED"');
                                     } else{
-                                        $('.PluploadLoad').load('<?=$this->Config['UrlLoad']?>/<?=$id?>');
+                                        $('.PluploadLoad').load('<?=$this->Config['UrlLoad']?>/<?php echo $id; ?>/<?php echo $model; ?>');
                                     }
 
                                 },

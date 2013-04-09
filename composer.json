@@ -9,8 +9,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/skeleton-application":"dev-master",
-        "zf-commons/zfc-base" : "0.*",
-        "zf-commons/zfc-user" : "0.*",
+        "zf-commons/zfc-base":"~0.1",
         "webino/webino-image-thumb":"dev-master"
     },
     "authors": [

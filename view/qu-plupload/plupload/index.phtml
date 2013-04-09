@@ -11,9 +11,13 @@ $this->headScript()
 <div class="container">
     <div class="row">
         <div class="span12">
+            <h1>
+                Qu <a href="http://www.plupload.com/">
+                    Plupload
+                    <small>visit website</small>
+                </a>
+            </h1>
             <div class="shadow">
-
-
                 <div class="test plupload_header">
                     <div class="plupload_header_content">
                         <div class="plupload_header_title">
@@ -24,7 +28,7 @@ $this->headScript()
 
 
                 <div class="PluploadLoad">
-                    <?php echo $this->PluploadHelpLoad($id); ?>
+                    <?php echo $this->PluploadHelpLoad($id,$model); ?>
                 </div>
 
 
@@ -38,7 +42,7 @@ $this->headScript()
 
 
                 <div id="uploader"></div>
-                <?php echo $this->PluploadHelp('uploader'); ?>
+                <?php echo $this->PluploadHelp('uploader',$id,$model); ?>
 
           </div>
         </div>

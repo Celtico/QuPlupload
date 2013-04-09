@@ -9,6 +9,7 @@ namespace QuPlupload\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use QuPlupload\Util;
+use Zend\Validator\File;
 
 class PluploadHelpLoad extends AbstractHelper
 {
@@ -34,14 +35,16 @@ class PluploadHelpLoad extends AbstractHelper
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @param int $id
+     * @param int $model
+     * @return bool|string
      */
-    public function __invoke($id = 0)
+    public function __invoke($id,$model)
     {
-        $this->pluploadService->setPluploadIdList($id);
 
-        $listDb  = $this->pluploadService->getPluploadList();
+        $this->pluploadService->setPluploadIdAndModelList($id,$model);
+
+        $listDb  = $this->pluploadService->getPluploadIdAndModelList();
         $Util    = new Util();
 
         if(count($listDb) > 0){
@@ -50,7 +53,6 @@ class PluploadHelpLoad extends AbstractHelper
 
             foreach($listDb as $a){
 
-                $type      = explode('/',$a->getType());
                 $file      = $this->Config['DirUploadAbsolute'] . '/' . $a->getName();
                 $url       = $this->Config['DirUpload'] . '/'  . $a->getName();
                 $urlSmall  = $this->Config['DirUpload'] . '/s' . $a->getName();
@@ -58,8 +60,9 @@ class PluploadHelpLoad extends AbstractHelper
                 $id_in     = $a->getIdPlupload();
                 $size      = $Util->formatBytes($a->getSize());
                 $ex        = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                $Exists    = new File\NotExists($file);
 
-                if( file_exists ($file) ){
+                if($Exists->isValid($file)){
 
 
                     if($ex == 'jpg' or $ex == 'jpeg' or $ex == 'gif' or $ex == 'png'){
@@ -96,7 +99,7 @@ class PluploadHelpLoad extends AbstractHelper
             <script type=\"text/javascript\">
 
                 $('.action').click(function(){
-                    $('.PluploadLoad').load('". $this->Config['UrlRemove'] ."/' + $(this).attr('id') + '/". $id ."');
+                    $('.PluploadLoad').load('". $this->Config['UrlRemove'] ."/' + $(this).attr('id') + '/". $id ."/". $model ."');
                 });
 
             </script>";

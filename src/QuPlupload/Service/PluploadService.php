@@ -63,14 +63,13 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
     /* UPLOAD!!! */
 
 
-
-
     /**
      * @param $id_parent
      * @param $data
+     * @param $model
      * @return bool
      */
-    public function uploadPlupload($id_parent,$data)
+    public function uploadPlupload($id_parent,$data,$model)
     {
 
         $pluploadMapper      = $this->getPluploadMapper();
@@ -85,8 +84,8 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
         ->setError(     (int)    $data['file']['error'])
         ->setSize(      (int)    $data['file']['size'])
         ->setIdParent(  (int)    $id_parent)
+        ->setModel(     (string) $model)
         ;
-
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('plupload_entity' => $pluploadEntity));
 
         if(isset($data["chunk"])){
@@ -199,6 +198,29 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
     public function setPluploadIdList($id)
     {
         $this->PluploadList = $this->getPluploadMapper()->findByParent($id);
+        return $this;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPluploadIdAndModelList()
+    {
+        if (!$this->PluploadList) {
+            $this->setPluploadIdList(0);
+        }
+        return $this->PluploadList;
+    }
+
+    /**
+     * @param $id
+     * @param $model
+     * @return $this
+     */
+    public function setPluploadIdAndModelList($id,$model)
+    {
+        $this->PluploadList = $this->getPluploadMapper()->findByParentByModel($id,$model);
         return $this;
     }
 

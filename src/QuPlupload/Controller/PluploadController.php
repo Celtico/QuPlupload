@@ -20,6 +20,7 @@ class PluploadController extends AbstractActionController
     {
         $view          = new ViewModel();
         $view->id      = $this->getEvent()->getRouteMatch()->getParam('id', 0);
+        $view->model   = $this->getEvent()->getRouteMatch()->getParam('model', 'model');
         $this->Config  = $this->getServiceLocator()->get('Config');
         $view->DirJs   = $this->Config['QuConfig']['QuPlupload']['DirJs'];
 
@@ -31,8 +32,9 @@ class PluploadController extends AbstractActionController
      */
     public function loadAction()
     {
-        $view = new ViewModel();
-        $view->id = $this->getEvent()->getRouteMatch()->getParam('id', 0);
+        $view        = new ViewModel();
+        $view->id    = $this->getEvent()->getRouteMatch()->getParam('id', 0);
+        $view->model = $this->getEvent()->getRouteMatch()->getParam('model', 'model');
         return $view->setTerminal(true);
     }
 
@@ -48,10 +50,11 @@ class PluploadController extends AbstractActionController
                 $this->getRequest()->getFiles()->toArray()
             );
 
-            $id = $this->getEvent()->getRouteMatch()->getParam('id', 0);
+            $id    = $this->getEvent()->getRouteMatch()->getParam('id', 0);
+            $model = $this->getEvent()->getRouteMatch()->getParam('model', 'model');
             $PluploadService = $this->getServiceLocator()->get('plupload_service');
 
-            $PluploadService->uploadPlupload($id,$data);
+            $PluploadService->uploadPlupload($id,$data,$model);
 
         }
 
@@ -70,8 +73,9 @@ class PluploadController extends AbstractActionController
         $PluploadService->PluploadRemove($id);
 
         //ReloadLoad List
-        $view = new ViewModel();
-        $view->id = $this->getEvent()->getRouteMatch()->getParam('id_parent', 0);
+        $view        = new ViewModel();
+        $view->id    = $this->getEvent()->getRouteMatch()->getParam('id_parent', 0);
+        $view->model = $this->getEvent()->getRouteMatch()->getParam('model', 'model');
         return $view->setTerminal(true);
     }
 }

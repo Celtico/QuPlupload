@@ -95,4 +95,10 @@ class PluploadMapper extends AbstractDbMapper implements PluploadMapperInterface
         return $this;
     }
 
+    public function findByParentByModel($id,$model)
+    {
+        $select    = $this->getSelect()
+            ->where(array('id_parent' => $id,'model' => $model))->order('id desc');
+        return $this->select($select);
+    }
 }
