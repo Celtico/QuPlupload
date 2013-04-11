@@ -35,6 +35,9 @@ class PluploadController extends AbstractActionController
         $view        = new ViewModel();
         $view->id    = $this->getEvent()->getRouteMatch()->getParam('id', 0);
         $view->model = $this->getEvent()->getRouteMatch()->getParam('model', 'model');
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('test' => 'test'));
+
         return $view->setTerminal(true);
     }
 

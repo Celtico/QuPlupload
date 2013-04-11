@@ -125,7 +125,7 @@ class ThumbModel
      * @param array $ThumbResize
      * @return $this
      */
-    public function setThumbResize(array $ThumbResize)
+    public function setThumbResize($ThumbResize)
     {
         $this->ThumbResize = $ThumbResize;
         return $this;

@@ -27,6 +27,11 @@ class PluploadModel
     public function PluploadModel($data){
 
 
+        if(!is_dir($this->uploadDir)){
+           mkdir($this->uploadDir);
+           chmod($this->uploadDir, 0777);
+        }
+
 
         $contentType = '';
         $fileName_b = '';

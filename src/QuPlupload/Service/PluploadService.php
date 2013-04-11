@@ -9,6 +9,7 @@ namespace QuPlupload\Service;
 
 use QuPlupload\Options\PluploadOptions;
 use QuPlupload\Entity\PluploadMapperInterface;
+use Zend\EventManager\EventManager;
 use ZfcBase\EventManager\EventProvider;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
@@ -59,6 +60,27 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
 
 
 
+    /**
+     * @var string
+     */
+    protected $DirUploadAbsolute;
+
+    /**
+     * @var
+     */
+    protected $ThumbResize;
+
+    /**
+     * @var
+     */
+    protected $Resize;
+
+    /**
+     * @var
+     */
+    protected $DirUpload;
+
+
 
     /* UPLOAD!!! */
 
@@ -71,6 +93,8 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
      */
     public function uploadPlupload($id_parent,$data,$model)
     {
+       $this->getPluploadOptions();
+
 
         $pluploadMapper      = $this->getPluploadMapper();
         $pluploadEntity      = $this->getPluploadEntity();
@@ -86,7 +110,7 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
         ->setIdParent(  (int)    $id_parent)
         ->setModel(     (string) $model)
         ;
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('plupload_entity' => $pluploadEntity));
+        $this->getEventManager()->trigger(__FUNCTION__.'.pre', $this, array('plupload_entity' => $pluploadEntity));
 
         if(isset($data["chunk"])){
 
@@ -156,15 +180,21 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
      */
     public function PluploadRemove($id)
     {
+
+        $this->getPluploadOptions();
+
         $pluploadMapper      = $this->getPluploadMapper();
         $RemoveModel         = $this->getRemoveModel();
 
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('remove_model' => $RemoveModel));
 
+
+        if($pluploadMapper->find($id)){
             $fileNameDb = $pluploadMapper->find($id)->getName();
             if($RemoveModel->Remove($fileNameDb)){
                 $pluploadMapper->Remove($id);
             }
+        }
 
         $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('remove_model' => $RemoveModel));
 
@@ -172,6 +202,47 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
     }
 
 
+    /**
+     * @param $model
+     * @return bool
+     */
+    public function pluploadRemoveAll($model)
+    {
+        $pluploadMapper      = $this->getPluploadMapper();
+        $m = $pluploadMapper->findByModel($model,0);
+        if( $m ){
+            foreach($m as $r){
+                $this->PluploadRemove($r->getIdPlupload());
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * @param $id_parent
+     * @param $model
+     * @return bool
+     */
+    public function pluploadUpdate($id_parent,$model)
+    {
+        $pluploadMapper      = $this->getPluploadMapper();
+        $pluploadEntity      = $this->getPluploadEntity();
+        $m = $pluploadMapper->findByModel($model,0);
+        foreach($m as $r){
+            $pluploadEntity
+                ->setName($r->getName())
+                ->setType($r->getType())
+                ->setTmpName($r->getTmpName())
+                ->setError($r->getError())
+                ->setSize($r->getSize())
+                ->setIdParent($id_parent)
+                ->setModel($r->getModel())
+                ->setIdPlupload($r->getIdPlupload());
+            $pluploadMapper->update($pluploadEntity);
+        }
+        return true;
+    }
 
 
     /* GET LIST!! */
@@ -246,6 +317,8 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
                 $this->getServiceManager()->get('plupload_options')
             );
         }
+
+
         return $this->pluploadOptions;
     }
 
@@ -255,9 +328,15 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
      * @return $this
      */
     public function setPluploadOptions(PluploadOptions $PluploadOptions){
+
         $this->pluploadOptions = $PluploadOptions;
+
         return $this;
     }
+
+
+
+
 
 
 
@@ -310,6 +389,12 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
                 $this->getServiceManager()->get('plupload_model')
             );
         }
+
+        if(!$this->DirUpload){
+            $this->pluploadModel->setUploadDir($this->getPluploadOptions()->DirUploadAbsolute);
+        }
+
+
         return $this->pluploadModel;
     }
     /**
@@ -317,6 +402,7 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
      * @return $this
      */
     public function setPluploadModel($pluploadModel){
+
         $this->pluploadModel = $pluploadModel;
         return $this;
     }
@@ -337,6 +423,15 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
                 $this->getServiceManager()->get('remove_model')
             );
         }
+
+        if(!$this->DirUpload){
+            $this->RemoveModel->setUploadDir($this->getPluploadOptions()->DirUploadAbsolute);
+        }
+        if(!$this->ThumbResize){
+            $this->RemoveModel->setThumbResize($this->getPluploadOptions()->ThumbResize);
+        }
+
+
         return $this->RemoveModel;
     }
 
@@ -367,6 +462,14 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
                 $this->getServiceManager()->get('thumb_model')
             );
         }
+
+        if(!$this->DirUpload){
+            $this->ThumbModel->setUploadDir($this->getPluploadOptions()->DirUploadAbsolute);
+        }
+        if(!$this->ThumbResize){
+            $this->ThumbModel->setThumbResize($this->getPluploadOptions()->ThumbResize);
+        }
+
         return $this->ThumbModel;
     }
 

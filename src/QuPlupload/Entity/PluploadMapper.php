@@ -14,7 +14,7 @@ use QuPlupload\Entity\PluploadMapperInterface;
 
 class PluploadMapper extends AbstractDbMapper implements PluploadMapperInterface
 {
-    protected $tableName;
+    protected $tableName = 'qu-plupload';
 
     /**
      * @param $id
@@ -39,6 +39,23 @@ class PluploadMapper extends AbstractDbMapper implements PluploadMapperInterface
     public function findByParent($id)
     {
         $select    = $this->getSelect()->where(array('id_parent' => $id))->order('id desc');
+        $entity    = $this->select($select);
+        if ($entity->count()) {
+            $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
+            return  $entity;
+        }
+        return null;
+    }
+
+
+    /**
+     * @param $Model
+     * @param $id_parent
+     * @return null|\Zend\Db\ResultSet\HydratingResultSet
+     */
+    public function findByModel($Model,$id_parent)
+    {
+        $select    = $this->getSelect()->where(array('model' => $Model,'id_parent'=>$id_parent))->order('id desc');
         $entity    = $this->select($select);
         if ($entity->count()) {
             $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
