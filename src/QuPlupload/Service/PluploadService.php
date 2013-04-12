@@ -204,12 +204,14 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
 
     /**
      * @param $model
+     * @param $id_parent
      * @return bool
      */
-    public function pluploadRemoveAll($model)
+    public function pluploadRemoveAll($model,$id_parent)
     {
-        $pluploadMapper      = $this->getPluploadMapper();
-        $m = $pluploadMapper->findByModel($model,0);
+        $pluploadMapper  = $this->getPluploadMapper();
+        $m = $pluploadMapper->findByModel($model,$id_parent);
+
         if( $m ){
             foreach($m as $r){
                 $this->PluploadRemove($r->getIdPlupload());
@@ -224,7 +226,7 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
      * @param $model
      * @return bool
      */
-    public function pluploadUpdate($id_parent,$model)
+    public function pluploadUpdate($model,$id_parent)
     {
         $pluploadMapper      = $this->getPluploadMapper();
         $pluploadEntity      = $this->getPluploadEntity();
