@@ -231,17 +231,19 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
         $pluploadMapper      = $this->getPluploadMapper();
         $pluploadEntity      = $this->getPluploadEntity();
         $m = $pluploadMapper->findByModel($model,0);
-        foreach($m as $r){
-            $pluploadEntity
-                ->setName($r->getName())
-                ->setType($r->getType())
-                ->setTmpName($r->getTmpName())
-                ->setError($r->getError())
-                ->setSize($r->getSize())
-                ->setIdParent($id_parent)
-                ->setModel($r->getModel())
-                ->setIdPlupload($r->getIdPlupload());
-            $pluploadMapper->update($pluploadEntity);
+        if($m){
+            foreach($m as $r){
+                $pluploadEntity
+                    ->setName($r->getName())
+                    ->setType($r->getType())
+                    ->setTmpName($r->getTmpName())
+                    ->setError($r->getError())
+                    ->setSize($r->getSize())
+                    ->setIdParent($id_parent)
+                    ->setModel($r->getModel())
+                    ->setIdPlupload($r->getIdPlupload());
+                $pluploadMapper->update($pluploadEntity);
+            }
         }
         return true;
     }
