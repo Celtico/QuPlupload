@@ -30,7 +30,7 @@ Installation Drag and Drop
 
 Next
 ========================
-- Move js/plugin public folder
+- QuAdminCompleteApp provider assets
 - Enable modules (QuPlupload/WebinoImageThumb) application.config.php and configure the routes module.config.php
 - Folder permissions to upload
 
