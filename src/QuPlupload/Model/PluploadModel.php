@@ -28,8 +28,12 @@ class PluploadModel
 
 
         if(!is_dir($this->uploadDir)){
-           mkdir($this->uploadDir);
-           chmod($this->uploadDir, 0777);
+           @mkdir($this->uploadDir);
+           @chmod($this->uploadDir, 0777);
+        }
+
+        if (!is_writable($this->uploadDir)) {
+            return false;
         }
 
 

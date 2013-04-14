@@ -115,31 +115,40 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
         if(isset($data["chunk"])){
 
             // UploadModel
-            $fileName = $pluploadModel->PluploadModel($data);
-
-            if(($data["chunk"]+1) == $data["chunks"]){
-
-
-                // Get db last id
-                $id = $pluploadMapper->insert($pluploadEntity);
+            $file = $pluploadModel->PluploadModel($data);
+            if($file){
 
 
-                // Get size and rename
-                $fileSize = filesize ( $fileName['filePath'] );
-                $NameRename  =  str_replace('/-','/'.$id.'-',$fileName['filePath']);
-                rename($fileName['filePath'],$NameRename);
+
+                if(($data["chunk"]+1) == $data["chunks"]){
 
 
-                // Thumb
-               $thumbModel->ThumbModel($id.$fileName['fileName']);
+                    // Get db last id
+                    $id = $pluploadMapper->insert($pluploadEntity);
 
 
-                // Update Db
-                $pluploadEntity
-                    ->setName($id.$fileName['fileName'])
-                    ->setSize($fileSize)
-                    ->setIdPlupload($id);
-                $pluploadMapper->update($pluploadEntity);
+                    // Get size and rename
+                    $fileSize = filesize ( $file['filePath'] );
+                    $NameRename  =  str_replace('/-','/'.$id.'-',$file['filePath']);
+                    rename($file['filePath'],$NameRename);
+
+
+                    // Thumb
+                   $thumbModel->ThumbModel($id.$file['fileName']);
+
+
+                    // Update Db
+                    $pluploadEntity
+                        ->setName($id.$file['fileName'])
+                        ->setSize($fileSize)
+                        ->setIdPlupload($id);
+                    $pluploadMapper->update($pluploadEntity);
+
+                }
+
+            }else{
+
+                throw new \Exception('Not writable '.$this->getPluploadOptions()->DirUploadAbsolute);
 
             }
 
@@ -150,16 +159,26 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
 
             // Upload and set Name
             $pluploadModel->setId($id);
-            $fileName = $pluploadModel->PluploadModel($data);
+            $file = $pluploadModel->PluploadModel($data);
 
-            // Thumb
-            $thumbModel->ThumbModel($fileName['fileName']);
+            if($file){
 
-            // Update Db
-            $pluploadEntity
-                ->setName($fileName['fileName'])
-                ->setIdPlupload($id);
-            $pluploadMapper->update($pluploadEntity);
+                // Thumb
+                $thumbModel->ThumbModel($file['fileName']);
+
+                // Update Db
+                $pluploadEntity
+                    ->setName($file['fileName'])
+                    ->setIdPlupload($id);
+                $pluploadMapper->update($pluploadEntity);
+
+           }else{
+
+                $pluploadMapper->Remove($id);
+
+                throw new \Exception('Not writable '.$this->getPluploadOptions()->DirUploadAbsolute);
+
+            }
 
         }
 
@@ -190,8 +209,8 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
 
 
         if($pluploadMapper->find($id)){
-            $fileNameDb = $pluploadMapper->find($id)->getName();
-            if($RemoveModel->Remove($fileNameDb)){
+            $fileDb = $pluploadMapper->find($id)->getName();
+            if($RemoveModel->Remove($fileDb)){
                 $pluploadMapper->Remove($id);
             }
         }
