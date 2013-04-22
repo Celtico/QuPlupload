@@ -8,7 +8,7 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework":"dev-master",
+        "zendframework/zendframework": "2.*",
         "zf-commons/zfc-base":"~0.1",
         "webino/webino-image-thumb":"dev-master"
     },
