@@ -90,6 +90,7 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
      * @param $data
      * @param $model
      * @return bool
+     * @throws \Exception
      */
     public function uploadPlupload($id_parent,$data,$model)
     {
@@ -241,15 +242,16 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
 
 
     /**
-     * @param $id_parent
      * @param $model
+     * @param $id_parent
+     * @param $id
      * @return bool
      */
-    public function pluploadUpdate($model,$id_parent)
+    public function pluploadUpdate($model,$id_parent,$id)
     {
         $pluploadMapper      = $this->getPluploadMapper();
         $pluploadEntity      = $this->getPluploadEntity();
-        $m = $pluploadMapper->findByModel($model,0);
+        $m = $pluploadMapper->findByModel($model,$id_parent);
         if($m){
             foreach($m as $r){
                 $pluploadEntity
@@ -258,7 +260,7 @@ class PluploadService extends EventProvider implements ServiceManagerAwareInterf
                     ->setTmpName($r->getTmpName())
                     ->setError($r->getError())
                     ->setSize($r->getSize())
-                    ->setIdParent($id_parent)
+                    ->setIdParent($id)
                     ->setModel($r->getModel())
                     ->setIdPlupload($r->getIdPlupload());
                 $pluploadMapper->update($pluploadEntity);

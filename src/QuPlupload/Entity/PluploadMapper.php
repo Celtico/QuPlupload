@@ -38,7 +38,7 @@ class PluploadMapper extends AbstractDbMapper implements PluploadMapperInterface
      */
     public function findByParent($id)
     {
-        $select    = $this->getSelect()->where(array('id_parent' => $id))->order('id desc');
+        $select    = $this->getSelect()->where(array('id_parent' => $id))->order('id asc');
         $entity    = $this->select($select);
         if ($entity->count()) {
             $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
